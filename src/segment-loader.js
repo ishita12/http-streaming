@@ -13,7 +13,7 @@ import {mediaSegmentRequest, REQUEST_ERRORS} from './media-segment-request';
 import { TIME_FUDGE_FACTOR, timeUntilRebuffer as timeUntilRebuffer_ } from './ranges';
 import { minRebufferMaxBandwidthSelector } from './playlist-selectors';
 import logger from './util/logger';
-//test
+
 // in ms
 const CHECK_BUFFER_DELAY = 500;
 

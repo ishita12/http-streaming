@@ -34,7 +34,11 @@ module.exports = function(config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required']
       },
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 8f3402c... coverage report
 
       ChromeCanaryHeadlessNoSandbox: {
         base: 'ChromeCanaryHeadless',
@@ -55,7 +59,13 @@ module.exports = function(config) {
               },
               { type: 'text-summary' }
             ]
+<<<<<<< HEAD
     },
+=======
+
+  },
+
+>>>>>>> 8f3402c... coverage report
     preprocessors: {
       'test/**/*.test.js': ['browserify']
     },
