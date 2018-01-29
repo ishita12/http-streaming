@@ -74,11 +74,12 @@ module.exports = function(config) {
         'test/data/**',
       ]
     },
+    /*
     plugins: [
         'karma-coverage',
         'karma-browserify',
         'karma-qunit'
-    ],
+    ],*/
     babelPreprocessor: {
       options: {
         presets: ['es2015'],
