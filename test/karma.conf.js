@@ -75,7 +75,8 @@ module.exports = function(config) {
       ]
     },
     plugins: [
-        'karma-coverage'
+        'karma-coverage',
+        'karma-browserify'
     ],
     babelPreprocessor: {
       options: {
