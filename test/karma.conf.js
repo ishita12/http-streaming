@@ -34,7 +34,7 @@ module.exports = function(config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required']
       },
-      reporters = ['coverage'],
+      reporters: ['coverage'],
       coverageReporter: {
 
           type: 'text',
