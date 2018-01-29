@@ -74,6 +74,9 @@ module.exports = function(config) {
         'test/data/**',
       ]
     },
+    plugins: [
+        'karma-coverage'
+    ],
     babelPreprocessor: {
       options: {
         presets: ['es2015'],
