@@ -49,6 +49,13 @@ module.exports = function(config) {
         { type: 'text-summary' }
       ]
     },
+    client: {
+      clearContext: false,
+      qunit: {
+        showUI: true,
+        testTimeout: 5000
+      }
+    },
       ChromeCanaryHeadlessNoSandbox: {
         base: 'ChromeCanaryHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'],
