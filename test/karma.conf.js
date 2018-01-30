@@ -113,7 +113,7 @@ module.exports = function(config) {
       }
     },
     preprocessors: {
-      'dist-test/videojs-http-streaming.js': ['browserify']
+      'test/**/*.test.js': ['browserify']
     },
     browserify: {
       debug: true,
