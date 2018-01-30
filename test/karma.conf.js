@@ -89,8 +89,7 @@ module.exports = function(config) {
         browser_version: '11',
         os: 'Windows',
         os_version: '10'
-      }
-    },
+      },
     detectBrowsers: {
       usePhantomJS: false,
 
