@@ -34,7 +34,7 @@ module.exports = function(config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required']
       },
-      
+
 
       ChromeCanaryHeadlessNoSandbox: {
         base: 'ChromeCanaryHeadless',
@@ -55,9 +55,7 @@ module.exports = function(config) {
               },
               { type: 'text-summary' }
             ]
-
-  },
-
+    },
     preprocessors: {
       'test/**/*.test.js': ['browserify']
     },
@@ -71,12 +69,6 @@ module.exports = function(config) {
         'test/data/**',
       ]
     },
-    /*
-    plugins: [
-        'karma-coverage',
-        'karma-browserify',
-        'karma-qunit'
-    ],*/
     babelPreprocessor: {
       options: {
         presets: ['es2015'],
