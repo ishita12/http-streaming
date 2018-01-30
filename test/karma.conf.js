@@ -16,13 +16,6 @@ module.exports = function(config) {
     basePath: '..',
     frameworks: ['qunit', 'browserify', 'detectBrowsers'],
     files: [
-      'node_modules/sinon/pkg/sinon.js',
-      'node_modules/sinon/pkg/sinon-ie.js',
-      'node_modules/video.js/dist/video.js',
-      'node_modules/video.js/dist/video-js.css',
-      'node_modules/videojs-flash/dist/videojs-flash.js',
-      'dist-test/browserify-test.js',
-      'dist-test/webpack-test.js',
       'dist-test/videojs-http-streaming.js'
     ],
     browserConsoleLogOptions: {
@@ -113,7 +106,7 @@ module.exports = function(config) {
       }
     },
     preprocessors: {
-      'dist-test/**/videojs-http-streaming.js': ['browserify']
+      'test/**/*.test.js': ['browserify']
     },
     browserify: {
       debug: true,
