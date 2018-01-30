@@ -34,10 +34,27 @@ module.exports = function(config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required']
       },
+
+
       ChromeCanaryHeadlessNoSandbox: {
         base: 'ChromeCanaryHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required'],
        }
+    },
+    coverageReporter: {
+      reporters: [
+              {
+                type: 'text',
+                dir: 'coverage/',
+                file: 'coverage.txt'
+              },
+              {
+                type: 'lcovonly',
+                dir: 'coverage/',
+                subdir: '.'
+              },
+              { type: 'text-summary' }
+            ]
     },
     preprocessors: {
       'test/**/*.test.js': ['browserify']
