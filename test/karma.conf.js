@@ -58,8 +58,7 @@ module.exports = function(config) {
           '--no-sandbox',
           '--no-user-gesture-required'
         ]
-      }
-    },
+      },
       ChromeBrowserStack: {
         base: 'BrowserStack',
         flags: [
@@ -89,7 +88,8 @@ module.exports = function(config) {
         browser_version: '11',
         os: 'Windows',
         os_version: '10'
-      },
+      }  
+    },
     detectBrowsers: {
       usePhantomJS: false,
 
