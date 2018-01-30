@@ -2,8 +2,7 @@
  * @file source-updater.js
  */
 import videojs from 'video.js';
-
-const noop = function() {};
+import noop from './util/noop';
 
 /**
  * A queue of callbacks to be serialized and applied when a
