@@ -5,7 +5,7 @@ import {
 import * as MediaGroups from '../src/media-groups';
 import PlaylistLoader from '../src/playlist-loader';
 import DashPlaylistLoader from '../src/dash-playlist-loader';
-
+import noop from '../src/util/noop';
 QUnit.module('MediaGroups', {
   beforeEach(assert) {
     this.env = useFakeEnvironment(assert);
@@ -19,7 +19,7 @@ QUnit.module('MediaGroups', {
 
 QUnit.test('createMediaTypes creates skeleton object for all supported media groups',
 function(assert) {
-  const noopToString = 'function noop() {}';
+  const noopToString = noop.toString();
   const result = MediaGroups.createMediaTypes();
 
   assert.ok(result.AUDIO, 'created AUDIO media group object');
@@ -29,7 +29,6 @@ function(assert) {
     'created empty object for AUDIO tracks');
   assert.equal(result.AUDIO.activePlaylistLoader, null,
     'AUDIO activePlaylistLoader is null');
-  //@codeCoverageIgnoreStart
   assert.equal(result.AUDIO.activeGroup.toString(), noopToString,
     'created noop function for AUDIO activeGroup');
   assert.equal(result.AUDIO.activeTrack.toString(), noopToString,
@@ -38,7 +37,6 @@ function(assert) {
     'created noop function for AUDIO onGroupChanged');
   assert.equal(result.AUDIO.onTrackChanged.toString(), noopToString,
     'created noop function for AUDIO onTrackChanged');
-  //@codeCoverageIgnoreEnd
   assert.ok(result.SUBTITLES, 'created SUBTITLES media group object');
   assert.deepEqual(result.SUBTITLES.groups, {},
     'created empty object for SUBTITLES groups');
@@ -46,7 +44,6 @@ function(assert) {
     'created empty object for SUBTITLES tracks');
   assert.equal(result.SUBTITLES.activePlaylistLoader, null,
     'SUBTITLES activePlaylistLoader is null');
-  //@codeCoverageIgnoreStart
   assert.equal(result.SUBTITLES.activeGroup.toString(), noopToString,
     'created noop function for SUBTITLES activeGroup');
   assert.equal(result.SUBTITLES.activeTrack.toString(), noopToString,
@@ -55,7 +52,6 @@ function(assert) {
     'created noop function for SUBTITLES onGroupChanged');
   assert.equal(result.SUBTITLES.onTrackChanged.toString(), noopToString,
     'created noop function for SUBTITLES onTrackChanged');
-  //@codeCoverageIgnoreEnd
   assert.ok(result['CLOSED-CAPTIONS'], 'created CLOSED-CAPTIONS media group object');
   assert.deepEqual(result['CLOSED-CAPTIONS'].groups, {},
     'created empty object for CLOSED-CAPTIONS groups');
@@ -63,7 +59,6 @@ function(assert) {
     'created empty object for CLOSED-CAPTIONS tracks');
   assert.equal(result['CLOSED-CAPTIONS'].activePlaylistLoader, null,
     'CLOSED-CAPTIONS activePlaylistLoader is null');
-  //@codeCoverageIgnoreStart
   assert.equal(result['CLOSED-CAPTIONS'].activeGroup.toString(), noopToString,
     'created noop function for CLOSED-CAPTIONS activeGroup');
   assert.equal(result['CLOSED-CAPTIONS'].activeTrack.toString(), noopToString,
@@ -72,7 +67,6 @@ function(assert) {
     'created noop function for CLOSED-CAPTIONS onGroupChanged');
   assert.equal(result['CLOSED-CAPTIONS'].onTrackChanged.toString(), noopToString,
     'created noop function for CLOSED-CAPTIONS onTrackChanged');
-  //@codeCoverageIgnoreEnd
 });
   
 QUnit.test('stopLoaders pauses segment loader and playlist loader when available',
