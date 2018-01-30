@@ -14,7 +14,7 @@ module.exports = function(config) {
 
   config.set({
     basePath: '..',
-    frameworks: ['qunit', 'browserify'],
+    frameworks: ['qunit', 'browserify', 'detectBrowsers'],
     files: [
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/sinon/pkg/sinon-ie.js',
@@ -126,16 +126,6 @@ module.exports = function(config) {
         'test/data/**',
       ]
     },
-    babelPreprocessor: {
-      options: {
-        presets: ['es2015'],
-        sourceMap: 'inline'
-      },
-      sourceFileName: function (file) {
-        return file.originalPath;
-      }
-    },
-
     reporters: ['dots'],
     port: 9876,
     colors: true,
