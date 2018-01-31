@@ -411,6 +411,94 @@ QUnit.test('fires notifications when activated', function(assert) {
   assert.equal(hlsVideoUnderflowEvents, 1, 'triggered a videounderflow event');
   assert.equal(hlsLiveResyncEvents, 1, 'did not trigger an additional liveresync event');
 });
+QUnit.test('corrects seek outside of seekable', function(assert) {
+  // set an arbitrary live source
+  this.player.src({
+    src: 'liveStart30sBefore.m3u8',
+    type: 'application/vnd.apple.mpegurl'
+  });
+
+  // start playback normally
+  this.player.tech_.triggerReady();
+  this.clock.tick(1);
+  standardXHRResponse(this.requests.shift());
+  openMediaSource(this.player, this.clock);
+  this.player.tech_.trigger('play');
+  this.player.tech_.trigger('playing');
+  this.clock.tick(1);
+
+  let playbackWatcher = this.player.tech_.hls.playbackWatcher_;
+  let seeks = [];
+  let seekable;
+  let seeking;
+  let currentTime;
+
+  playbackWatcher.seekable = () => seekable;
+  playbackWatcher.tech_ = {
+    off: () => {},
+    seeking: () => seeking,
+    setCurrentTime: (time) => {
+      seeks.push(time);
+    },
+    currentTime: () => currentTime,
+    // mocked out
+    paused: () => false,
+    buffered: () => videojs.createTimeRanges()
+  };
+
+  // waiting
+
+  currentTime = 50;
+  seekable = videojs.createTimeRanges([[1, 45]]);
+  seeking = true;
+  this.player.tech_.trigger('waiting');
+  assert.equal(seeks.length, 1, 'seeked');
+  assert.equal(seeks[0], 45, 'player seeked to live point');
+
+  currentTime = 0;
+  this.player.tech_.trigger('waiting');
+  assert.equal(seeks.length, 2, 'seeked');
+  assert.equal(seeks[1], 1.1, 'player seeked to start of the live window');
+
+  // inside of seekable range
+  currentTime = 10;
+  this.player.tech_.trigger('waiting');
+  assert.equal(seeks.length, 2, 'did not seek');
+
+  currentTime = 50;
+  // if we're not seeking, the case shouldn't be handled here
+  seeking = false;
+  this.player.tech_.trigger('waiting');
+  assert.equal(seeks.length, 2, 'did not seek');
+
+  // no check for 0 with seeking false because that should be handled by live falloff
+
+  // checkCurrentTime
+
+  seeking = true;
+  currentTime = 50;
+  playbackWatcher.checkCurrentTime_();
+  assert.equal(seeks.length, 3, 'seeked');
+  assert.equal(seeks[2], 45, 'player seeked to live point');
+
+  currentTime = 0;
+  playbackWatcher.checkCurrentTime_();
+  assert.equal(seeks.length, 4, 'seeked');
+  assert.equal(seeks[3], 1.1, 'player seeked to live point');
+
+  currentTime = 10;
+  playbackWatcher.checkCurrentTime_();
+  assert.equal(seeks.length, 4, 'did not seek');
+
+  seeking = false;
+  currentTime = 50;
+  playbackWatcher.checkCurrentTime_();
+  assert.equal(seeks.length, 4, 'did not seek');
+
+  currentTime = 0;
+  playbackWatcher.checkCurrentTime_();
+  assert.equal(seeks.length, 4, 'did not seek');
+});
 
 QUnit.test('fixes bad seeks', function(assert) {
   // set an arbitrary live source
@@ -464,6 +552,7 @@ QUnit.test('fixes bad seeks', function(assert) {
   assert.ok(!playbackWatcher.fixesBadSeeks_(), 'does nothing when time within range');
   assert.equal(seeks.length, 2, 'did not seek');
 });
+
 QUnit.test('calls fixesBadSeeks_ on seekablechanged', function(assert) {
   // set an arbitrary live source
   this.player.src({
