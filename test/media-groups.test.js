@@ -6,6 +6,7 @@ import * as MediaGroups from '../src/media-groups';
 import PlaylistLoader from '../src/playlist-loader';
 import DashPlaylistLoader from '../src/dash-playlist-loader';
 import noop from '../src/util/noop';
+
 QUnit.module('MediaGroups', {
   beforeEach(assert) {
     this.env = useFakeEnvironment(assert);
@@ -68,7 +69,7 @@ function(assert) {
   assert.equal(result['CLOSED-CAPTIONS'].onTrackChanged.toString(), noopToString,
     'created noop function for CLOSED-CAPTIONS onTrackChanged');
 });
-  
+
 QUnit.test('stopLoaders pauses segment loader and playlist loader when available',
 function(assert) {
   let segmentLoaderAbortCalls = 0;
