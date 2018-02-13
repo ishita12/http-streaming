@@ -1,4 +1,5 @@
 import QUnit from 'qunit';
+import noop from '../src/util/noop';
 import {
   useFakeEnvironment
 } from './test-helpers.js';
@@ -69,6 +70,7 @@ function(assert) {
   assert.equal(result['CLOSED-CAPTIONS'].onTrackChanged.toString(), noopToString,
     'created noop function for CLOSED-CAPTIONS onTrackChanged');
 });
+
 QUnit.test('stopLoaders pauses segment loader and playlist loader when available',
 function(assert) {
   let segmentLoaderAbortCalls = 0;
